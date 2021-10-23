@@ -26,6 +26,10 @@ func unmarshalGame(r *http.Request) (game internal.Game, valid bool) {
 }
 
 func handleMove(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+
 	game, valid := unmarshalGame(r)
 	if !valid {
 		log.Println("No game found")
@@ -50,7 +54,6 @@ func handleMove(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	_, err = w.Write(js)
 	if err != nil {
 		log.Fatal(err)
