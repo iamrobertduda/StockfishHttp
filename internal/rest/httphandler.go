@@ -3,6 +3,7 @@ package internal
 import (
 	internal "StockfishHttp/internal/stockfish"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -57,8 +58,9 @@ func handleMove(w http.ResponseWriter, r *http.Request) {
 }
 
 func InitHandler() {
+	fmt.Println("Now listening on :8080")
 	http.HandleFunc("/move", handleMove)
-	err := http.ListenAndServe(":7910", nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
